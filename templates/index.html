@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- External stylesheet for app-specific styles (create /static/styles.css) -->
+    <!-- Inline stylesheet only to inject the dynamic background image from template variable -->
+    <style>         
+        /* layout and background sizing moved to external stylesheet; only the dynamic URL is set here */
+        body {
+            /* background-image is set dynamically via template variable */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px); /* semi-transparent background for better readability */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body style="background-image:url('{{url_for('static',filename='images/'~background)}}');}}'); 
+             background-size: 100% 100%; background-repeat: no-repeat; min-height: 100vh;"> 
+<!-- <body style="background-color: red;">          -->
+   
+    <div class="container">
+        <h1 class="mt-4">Welcome to the Weather App</h1>
+        <p class="lead">Enter a city to get the current weather:</p>
+        <form method="POST">
+            <div class="mb-3">
+                <input type="text" name="city" class="form-control w-50" placeholder="City Name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </form>
+    {% if error %}
+        <div class="alert alert-danger mt-4" role="alert">
+            {{error}}
+        </div>
+    {% endif %}
+    {% if weather %}
+            <div class="card mt-4 shadow-lg">
+                <div class="card-body">
+                    <p class="card-text">Current Time: {{weather.current_time}}</p>
+                    <h2 class="card-title">{{weather.city}}</h2>
+                    <img src="https://openweathermap.org/img/wn/{{weather.icon}}@2x.png" alt="Weather Icon">
+                    <p class="card-text">Temperature: {{weather.temp}}°C</p>
+                    <p class="card-text">Humidity: {{weather.humidity}}%</p>
+                    <p class="card-text">Condition: {{weather.condition}}</p>
+                </div>
+            </div>
+    {% endif %}
+   
+</body>
+</html>
