@@ -16,3 +16,4 @@ Technologies:
 - Bootstrap
 - OpenWeather API
 - MySQL
+live link : https://weather-app-2xch.onrender.com
