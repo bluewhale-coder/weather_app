@@ -2,15 +2,16 @@ from  flask import Flask, render_template, request
 import requests
 from datetime import datetime
 import mysql.connector
+import os
 
-conn=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="weather_app"
-)
-cursor=conn.cursor()
-print("my sql connect successfully")
+# conn=mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="root",
+#     database="weather_app"
+# )
+# cursor=conn.cursor()
+# print("my sql connect successfully")
 
 # weather_data = cursor.fetchall()
 # for data in weather_data:
@@ -18,7 +19,7 @@ print("my sql connect successfully")
 # cursor=conn.commit()
 
 app = Flask(__name__)
-API_KEY = '5a88aa2a8d0c5ead72d1bbea617b83ce'
+API_KEY = '11673fdb6e53fc3b795f31ea01c4b635'
 @app.route('/', methods=['GET', 'POST'])
 def home():
     weather = None
@@ -41,10 +42,10 @@ def home():
                 "icon":data["weather"][0]["icon"],
                 "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
-            cursor.execute(
-            "insert into weather_history(city,temperature,searched_at) values (%s,%s,now())",(weather["city"],weather["temp"])
-)
-            conn.commit()
+#             cursor.execute(
+#             "insert into weather_history(city,temperature,searched_at) values (%s,%s,now())",(weather["city"],weather["temp"])
+# )
+            # conn.commit()
             if weather["condition"]=="Rain":
                 background="rain.jpg"
             elif weather["condition"]=="Clouds":
